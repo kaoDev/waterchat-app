@@ -5,27 +5,38 @@
   "dependencies": {
     "@types/jest": "^19.2.4",
     "@types/node": "^7.0.23",
+    "@types/query-string": "^4.3.1",
     "@types/react": "^15.0.25",
     "@types/react-dom": "^15.5.0",
     "@types/react-redux": "^4.4.40",
     "@types/react-router": "^4.0.11",
+    "@types/react-router-dom": "^4.0.4",
     "@types/react-router-redux": "^5.0.1",
     "@types/redux-actions": "^1.2.4",
+    "query-string": "^4.3.4",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
     "react-redux": "^5.0.5",
+    "react-router-dom": "^4.1.1",
     "react-router-redux": "^5.0.0-alpha.6",
     "redux": "^3.6.0",
     "redux-actions": "^2.0.3",
-    "redux-observable": "^0.14.1"
+    "redux-observable": "^0.14.1",
+    "rxjs": "^5.4.0"
   },
   "devDependencies": {
-    "react-scripts-ts": "2.2.0"
+    "@kadira/storybook": "^2.21.0",
+    "@storybook/react": "^3.0.0",
+    "prettier": "^1.4.0-beta",
+    "react-scripts-ts": "2.2.0",
+    "ts-loader": "^2.1.0"
   },
   "scripts": {
     "start": "react-scripts-ts start",
     "build": "react-scripts-ts build",
     "test": "react-scripts-ts test --env=jsdom",
-    "eject": "react-scripts-ts eject"
+    "eject": "react-scripts-ts eject",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   }
 }
