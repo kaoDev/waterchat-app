@@ -1,8 +1,4 @@
-import {
-  SESSION_ID_CHANGED,
-  NO_OP,
-  LOCATION_CHANGE
-} from './actionIds'
+import { SESSION_ID_CHANGED, NO_OP, LOCATION_CHANGE } from './actionIds'
 
 export type SessionChanged = {
   type: typeof SESSION_ID_CHANGED,
@@ -10,16 +6,16 @@ export type SessionChanged = {
 }
 
 export type NoOp = {
-  type: typeof NO_OP
+  type: typeof NO_OP,
 }
 
 export type LocationChange = {
-  type: typeof LOCATION_CHANGE
+  type: typeof LOCATION_CHANGE,
   payload: {
-    pathname: string
-    search: string
-    hash: string
-  }
+    pathname: string,
+    search: string,
+    hash: string,
+  },
 }
 
 export type WaterChatAction = NoOp | SessionChanged | LocationChange

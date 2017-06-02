@@ -7,24 +7,25 @@ import createHistory from 'history/createBrowserHistory'
 import { Route, Redirect, RouteComponentProps } from 'react-router'
 import { Home } from './components/home'
 import { About } from './components/about'
-import { Topics } from './components/topics';
-import { Login } from './components/login';
+import { Topics } from './components/topics'
+import { Login } from './components/login'
 
 const history = createHistory()
 
 const store = createAppStore(history)
 
-const mapState: MapStateToProps<{ sessionId: string }, RouteComponentProps<{}>> = (state: AppState, ownProps) => ({ ...ownProps, sessionId: state.sessionId })
+const mapState: MapStateToProps<
+  { sessionId: string },
+  RouteComponentProps<{}>
+> = (state: AppState, ownProps) => ({ ...ownProps, sessionId: state.sessionId })
 
-const SessionCallback = connect(mapState)
-  (({ sessionId }) => {
-    if (sessionId !== '') {
-      return (<Redirect to='/' />)
-    }
-    else {
-      return (<Redirect to='/login' />)
-    }
-  })
+const SessionCallback = connect(mapState)(({ sessionId }) => {
+  if (sessionId !== '') {
+    return <Redirect to="/" />
+  } else {
+    return <Redirect to="/login" />
+  }
+})
 
 class App extends React.Component<{}, null> {
   render() {

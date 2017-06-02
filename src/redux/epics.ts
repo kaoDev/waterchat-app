@@ -9,38 +9,42 @@ import 'rxjs/add/operator/map'
 import 'rxjs/add/operator/do'
 
 const extractSessionId = (action: LocationChange) => {
-    const { sessionId } = parse(action.payload.search);
-    if (sessionId !== undefined) {
-        return sessionId as string
-    }
-    return ''
+  const { sessionId } = parse(action.payload.search)
+  if (sessionId !== undefined) {
+    return sessionId as string
+  }
+  return ''
 }
 
-export const extractSession: Epic<WaterChatAction, WaterChatAction> = $actions =>
-    $actions
-        .ofType(LOCATION_CHANGE)
-        .map(a => {
-            // if session callback is routed check if session id is set and then change route to login or home
-            if (a.type === LOCATION_CHANGE && a.payload.pathname.indexOf('/sessionCallback') == 0) {
-                const sessionId = extractSessionId(a);
-                if (sessionId.length > 0) {
-                    return {
-                        type: SESSION_ID_CHANGED,
-                        sessionId
-                    }
-                }
-            }
-            return { type: NO_OP }
-        })
+export const extractSession: Epic<
+  WaterChatAction,
+  WaterChatAction
+> = $actions =>
+  $actions.ofType(LOCATION_CHANGE).map(a => {
+    // if session callback is routed check if session id is set and then change route to login or home
+    if (
+      a.type === LOCATION_CHANGE &&
+      a.payload.pathname.indexOf('/sessionCallback') == 0
+    ) {
+      const sessionId = extractSessionId(a)
+      if (sessionId.length > 0) {
+        return {
+          type: SESSION_ID_CHANGED,
+          sessionId,
+        }
+      }
+    }
+    return { type: NO_OP }
+  })
 
 export const persistSession: Epic<WaterChatAction, NoOp> = $actions =>
-    $actions
-        .ofType(SESSION_ID_CHANGED)
-        .do(a => {
-            if (a.type == SESSION_ID_CHANGED) {
-                localStorage.setItem(SESSION_ID, a.sessionId)
-            }
-        })
-        .mapTo({
-            type: NO_OP
-        })
+  $actions
+    .ofType(SESSION_ID_CHANGED)
+    .do(a => {
+      if (a.type == SESSION_ID_CHANGED) {
+        localStorage.setItem(SESSION_ID, a.sessionId)
+      }
+    })
+    .mapTo({
+      type: NO_OP,
+    })

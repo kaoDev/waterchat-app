@@ -1,10 +1,16 @@
-import { createStore, combineReducers, applyMiddleware, compose, StoreEnhancer } from 'redux'
+import {
+  createStore,
+  combineReducers,
+  applyMiddleware,
+  compose,
+  StoreEnhancer,
+} from 'redux'
 import { createEpicMiddleware, combineEpics } from 'redux-observable'
 import { History } from 'history'
 import {
   routerMiddleware,
   RouterState,
-  routerReducer
+  routerReducer,
 } from 'react-router-redux'
 import * as reducers from './reducers'
 import { extractSession, persistSession } from './epics'
@@ -20,7 +26,7 @@ const initialSession = localStorage.getItem(SESSION_ID) || ''
 
 const initialAppState: AppState = {
   sessionId: initialSession,
-  router: { location: null }
+  router: { location: null },
 }
 
 declare const __REDUX_DEVTOOLS_EXTENSION_COMPOSE__: typeof compose | undefined
@@ -33,11 +39,12 @@ export const createAppStore = (history: History) => {
 
   const reduxObservableMiddleWare = createEpicMiddleware(
     combineEpics<WaterChatAction, WaterChatAction>(
-      extractSession, persistSession
+      extractSession,
+      persistSession
     )
   )
 
-  const composeEnhancers = __REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+  const composeEnhancers = __REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
   const storeEnhancer: StoreEnhancer<AppState> = composeEnhancers(
     applyMiddleware(routerMiddleWare, reduxObservableMiddleWare)
@@ -45,14 +52,10 @@ export const createAppStore = (history: History) => {
 
   const reducer = combineReducers<AppState>({
     ...reducers,
-    router: routerReducer
+    router: routerReducer,
   })
 
-  const store = createStore<AppState>(
-    reducer,
-    initialAppState,
-    storeEnhancer
-  )
+  const store = createStore<AppState>(reducer, initialAppState, storeEnhancer)
 
   return store
 }
