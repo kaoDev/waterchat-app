@@ -57,6 +57,7 @@ export class MessageList extends PureComponent<MessageListProps, {}> {
       this._list !== undefined
     ) {
       this._list.scrollToRow(this.props.messages.length - 1)
+      this._list.forceUpdate()
     }
   }
 

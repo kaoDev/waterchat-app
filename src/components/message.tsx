@@ -2,9 +2,8 @@ import glamorous from 'glamorous'
 import * as React from 'react'
 import { ProfilePicture } from './profile-picture'
 import { Timestamp } from './timestamp'
+import { grey, green } from '../colors'
 
-const messageGreen = '#84fab0'
-const messageGrey = '#d0d5dc'
 const paddingV = '22px'
 const paddingH = '12px'
 const profileDiameter = 24
@@ -26,7 +25,7 @@ const MessageContainerLarge = glamorous.div<{ ownMessage: boolean }>(
     flexShrink: 1,
   },
   ({ ownMessage }) => ({
-    backgroundColor: ownMessage ? messageGreen : messageGrey,
+    backgroundColor: ownMessage ? green : grey,
     borderTopLeftRadius: ownMessage ? paddingH : paddingV,
     borderTopRightRadius: ownMessage ? paddingV : paddingH,
     borderBottomLeftRadius: ownMessage ? paddingV : '0',

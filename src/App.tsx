@@ -5,9 +5,10 @@ import { ConnectedRouter } from 'react-router-redux'
 import createHistory from 'history/createBrowserHistory'
 import { Route, Redirect, RouteComponentProps } from 'react-router'
 import { Login } from './components/login'
+import { FlexColumnWrapper } from './components/generic'
 import { Home } from './containers/home'
+import { Header } from './containers/header'
 import { INIT, EXIT } from './events/actionIds'
-import { FillContainer } from './components/generic'
 
 const history = createHistory()
 
@@ -43,11 +44,12 @@ class App extends React.Component<{}, null> {
     return (
       <Provider store={store}>
         <ConnectedRouter history={history}>
-          <FillContainer>
+          <FlexColumnWrapper>
+            <Header />
             <Route exact path="/" component={Home} />
             <Route path="/login" component={Login} />
             <Route path="/sessionCallback" component={SessionCallback} />
-          </FillContainer>
+          </FlexColumnWrapper>
         </ConnectedRouter>
       </Provider>
     )

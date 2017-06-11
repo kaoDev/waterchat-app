@@ -1,10 +1,13 @@
 import * as React from 'react'
+import { GradienButtonExternalLink } from './generic'
 
 export type LoginButtonProps = {
-  url: string,
-  label: string,
+  url: string
+  label: string
 }
 
 export default function LoginButton({ url, label }: LoginButtonProps) {
-  return <a href={url}>{label}</a>
+  return (
+    <GradienButtonExternalLink href={url}>{label}</GradienButtonExternalLink>
+  )
 }
