@@ -1,5 +1,8 @@
-export type User = {
-  userId: string,
-  displayName: string,
-  profilePicture: string,
+export type UserId = {
+  userId: string
+}
+
+export type User = UserId & {
+  displayName: string
+  profilePicture: string
 }

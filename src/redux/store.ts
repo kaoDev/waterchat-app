@@ -13,20 +13,39 @@ import {
   routerReducer,
 } from 'react-router-redux'
 import * as reducers from './reducers'
-import { extractSession, persistSession } from './epics'
-import { WaterChatAction } from '../events/actions'
+import {
+  extractSession,
+  persistSession,
+  sessionConnection,
+  serverMessages,
+  readInitialSessionId,
+  serverCommands,
+  heartbeat,
+  log,
+  closeSocket,
+  fetchUser,
+} from './epics'
+import { User } from '../models/user'
+import { ServerMessage } from '../events/actions'
+import { Message } from '../models/message'
+import { WebSocketSubject } from 'rxjs/observable/dom/WebSocketSubject'
 
 export type AppState = {
-  readonly sessionId: string,
-  readonly router: RouterState,
+  readonly sessionId: string
+  readonly router: RouterState
+  readonly chatSocket: WebSocketSubject<ServerMessage> | null
+  readonly users: User[]
+  readonly self: User
+  readonly messages: Message[]
 }
-export const SESSION_ID = 'SESSION_ID'
-
-const initialSession = localStorage.getItem(SESSION_ID) || ''
 
 const initialAppState: AppState = {
-  sessionId: initialSession,
+  sessionId: '',
   router: { location: null },
+  chatSocket: null,
+  users: [],
+  messages: [],
+  self: { displayName: '', profilePicture: '', userId: '' },
 }
 
 declare const __REDUX_DEVTOOLS_EXTENSION_COMPOSE__: typeof compose | undefined
@@ -38,9 +57,17 @@ export const createAppStore = (history: History) => {
   const routerMiddleWare = routerMiddleware(history)
 
   const reduxObservableMiddleWare = createEpicMiddleware(
-    combineEpics<WaterChatAction, WaterChatAction>(
+    combineEpics(
       extractSession,
-      persistSession
+      persistSession,
+      sessionConnection,
+      serverMessages,
+      readInitialSessionId,
+      serverCommands,
+      heartbeat,
+      log,
+      closeSocket,
+      fetchUser
     )
   )
 

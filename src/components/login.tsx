@@ -1,6 +1,5 @@
 import * as React from 'react'
 import LoginButton from './loginButton'
-const logo = require('./logo.svg')
 
 const githubAuthBase = 'https://office.cap3.de:57503/auth/github'
 
@@ -14,7 +13,6 @@ export function Login() {
   return (
     <div className="App">
       <div className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
         <h2>Welcome to React</h2>
       </div>
       <p className="App-intro">

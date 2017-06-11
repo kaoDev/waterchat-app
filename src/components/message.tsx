@@ -1,7 +1,7 @@
 import glamorous from 'glamorous'
 import * as React from 'react'
 import { ProfilePicture } from './profile-picture'
-import { getHours, getMinutes } from 'date-fns'
+import { Timestamp } from './timestamp'
 
 const messageGreen = '#84fab0'
 const messageGrey = '#d0d5dc'
@@ -38,34 +38,22 @@ const Row = glamorous.div({
   display: 'flex',
   flexDirection: 'row',
   alignItems: 'center',
+  paddingBottom: '18px',
+  paddingLeft: '8px',
+  paddingRight: '8px',
+  boxSizing: 'border-box',
 })
 
-const Timestamp = glamorous.div<{ ownMessage: boolean }>(
-  {
-    fontFamily: 'sans-serif',
-    fontWeight: 100,
-    color: 'lightgrey',
-    padding: paddingV,
-    fontSize: '0.8em',
-  },
-  ({ ownMessage }) => ({
-    order: ownMessage ? 0 : 1,
-  })
-)
-const Spacer = glamorous.div<{ ownMessage: boolean }>(
-  {
-    flexGrow: 1,
-  },
-  ({ ownMessage }) => ({
-    order: ownMessage ? 0 : 2,
-  })
-)
+const Spacer = glamorous.div({
+  flexGrow: 1,
+})
 export type MessageProps = {
-  profilePicture: string,
-  userName: string,
-  timestamp: string,
-  content: string,
-  ownMessage: boolean,
+  profilePicture: string
+  userName: string
+  timestamp: string
+  content: string
+  ownMessage: boolean
+  style?: React.CSSProperties
 }
 export const Message = ({
   profilePicture,
@@ -73,6 +61,7 @@ export const Message = ({
   userName,
   timestamp,
   ownMessage,
+  style,
 }: MessageProps) => {
   const PositionedProfilePicture = glamorous(ProfilePicture)({
     position: 'absolute',
@@ -80,19 +69,21 @@ export const Message = ({
     right: ownMessage ? '0' : undefined,
     bottom: `-${profileDiameter / 2}px`,
   })
+
+  const rowContent = [
+    <Spacer key="spacer" />,
+    <Timestamp key="time" timestamp={timestamp} />,
+    <MessageContainerLarge key="message" ownMessage={ownMessage}>
+      {content}
+      <PositionedProfilePicture
+        url={profilePicture}
+        diameter={profileDiameter}
+      />
+    </MessageContainerLarge>,
+  ]
   return (
-    <Row>
-      <Spacer ownMessage={ownMessage} />
-      <Timestamp ownMessage={ownMessage}>{`${getHours(timestamp)}:${getMinutes(
-        timestamp
-      )}`}</Timestamp>
-      <MessageContainerLarge ownMessage={ownMessage}>
-        {content}
-        <PositionedProfilePicture
-          url={profilePicture}
-          diameter={profileDiameter}
-        />
-      </MessageContainerLarge>
+    <Row style={style}>
+      {ownMessage ? rowContent : rowContent.reverse()}
     </Row>
   )
 }
