@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { connect, MapStateToProps, Dispatch } from 'react-redux'
 import { AppState } from '../redux/store'
 import { WaterChatAction } from '../events/actions'
-import { SEND_MESSAGE } from '../events/actionIds'
+import { SEND_MESSAGE, SESSION_ID_CHANGED } from '../events/actionIds'
 import { MessageList } from '../components/message-list'
 import { RouteComponentProps } from 'react-router'
 import glamorous from 'glamorous'
@@ -15,6 +15,7 @@ const Header = glamorous.div({
   width: '100%',
   display: 'flex',
   alignItems: 'center',
+  justifyContent: 'space-between',
 })
 
 const green = '#85f7b5'
@@ -60,7 +61,7 @@ const TextInput = glamorous.textarea({
   resize: 'none',
 })
 
-const Submit = glamorous.button({
+const Button = glamorous.button({
   background: `linear-gradient(to right, ${green}, ${lightBlue})`,
   height: '50px',
   width: '100px',
@@ -79,6 +80,12 @@ function mapDispatch(dispatch: Dispatch<WaterChatAction>) {
         channelId,
       })
     },
+    logOut: () => {
+      dispatch({
+        type: SESSION_ID_CHANGED,
+        sessionId: '',
+      })
+    },
   }
 }
 
@@ -89,6 +96,7 @@ const mapState: MapStateToProps<AppState, RouteComponentProps<{}>> = (
 
 type DispatchProps = {
   sendMessage: (content: string, channelId: string) => void
+  logOut: () => void
 }
 
 type ChatState = {
@@ -121,19 +129,33 @@ class HomeComponent extends PureComponent<
       ? <p>
           <Link to="/login">goto login </Link>
         </p>
-      : <MessageList messages={messages} users={users} self={self} />
+      : [
+          <MessageList
+            key="messages"
+            messages={messages}
+            users={users}
+            self={self}
+          />,
+          <InputWrapper key="input">
+            <TextInput
+              onChange={this.onTextInput}
+              value={this.state.messageContent}
+            />
+            <Button onClick={this.submit}>Send</Button>
+          </InputWrapper>,
+        ]
 
     return (
       <FlexWrapper>
-        <Header><Title>Waterchat</Title></Header>
+        <Header>
+          <Title>Waterchat</Title>
+          {(() => {
+            if (chatSocket)
+              return <Button onClick={this.props.logOut}>Logout</Button>
+            else return null
+          })()}
+        </Header>
         {content}
-        <InputWrapper>
-          <TextInput
-            onChange={this.onTextInput}
-            value={this.state.messageContent}
-          />
-          <Submit onClick={this.submit}>Send</Submit>
-        </InputWrapper>
       </FlexWrapper>
     )
   }
