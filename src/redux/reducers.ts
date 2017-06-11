@@ -56,7 +56,7 @@ export const messages = (oldState: Message[] = [], action: WaterChatAction) => {
             userId: action.userId,
           },
         ])
-        .sort((a, b) => (a.timestamp > b.timestamp ? -1 : 1))
+        .sort((a, b) => (a.timestamp < b.timestamp ? -1 : 1))
     }
     default:
       return oldState
