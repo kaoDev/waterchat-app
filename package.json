@@ -32,9 +32,14 @@
     "@storybook/addon-storyshots": "^3.1.2",
     "@storybook/react": "^3.0.0",
     "@types/storybook__react": "^3.0.0",
+    "autoprefixer": "^7.1.1",
+    "css-loader": "^0.28.4",
+    "postcss-flexbugs-fixes": "^3.0.0",
+    "postcss-loader": "^2.0.5",
     "prettier": "^1.4.4",
     "react-scripts-ts": "2.2.0",
     "react-test-renderer": "^15.5.4",
+    "style-loader": "^0.18.2",
     "ts-loader": "^2.1.0"
   },
   "scripts": {

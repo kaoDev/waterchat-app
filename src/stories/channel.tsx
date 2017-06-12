@@ -47,7 +47,7 @@ const manyMessages: Message[] = messageContents
   .map(createMessage)
 
 const MinSizeContainer = ({ children }: React.Props<{}>) =>
-  <div style={{ height: '500px' }}>
+  <div style={{ height: '100%' }}>
     {children}
   </div>
 
