@@ -10,3 +10,5 @@ used and recommended npm packages:
 * [glamorous {💄}](https://github.com/paypal/glamorous)
 * [date-fns](https://github.com/date-fns/date-fns)
 * [react-virtualized](https://github.com/bvaughn/react-virtualized)
+* [create-react-app](https://github.com/facebookincubator/create-react-app)
+* [create-react-app-typescript](https://github.com/wmonk/create-react-app-typescript)
