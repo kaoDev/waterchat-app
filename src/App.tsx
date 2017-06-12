@@ -1,35 +1,19 @@
 import * as React from 'react'
-import { Provider, connect, MapStateToProps } from 'react-redux'
-import { createAppStore, AppState } from './redux/store'
+import { Provider } from 'react-redux'
+import { createAppStore } from './redux/store'
 import { ConnectedRouter } from 'react-router-redux'
 import createHistory from 'history/createBrowserHistory'
-import { Route, Redirect, RouteComponentProps } from 'react-router'
+import { Route } from 'react-router'
 import { Login } from './components/login'
 import { FlexColumnWrapper } from './components/generic'
 import { Home } from './containers/home'
 import { Header } from './containers/header'
 import { INIT, EXIT } from './events/actionIds'
+import { SessionCallback } from './containers/session-callback'
 
 const history = createHistory()
 
 const store = createAppStore(history)
-
-const mapState: MapStateToProps<
-  { sessionId: string },
-  RouteComponentProps<{}>
-> = (state: AppState, ownProps) => ({ ...ownProps, sessionId: state.sessionId })
-
-const SessionRedirect = ({
-  sessionId,
-}: { sessionId: string } & RouteComponentProps<{}>) => {
-  if (sessionId !== '') {
-    return <Redirect to="/" />
-  } else {
-    return <Redirect to="/login" />
-  }
-}
-
-const SessionCallback = connect(mapState)(SessionRedirect)
 
 class App extends React.Component<{}, null> {
   componentDidMount() {
