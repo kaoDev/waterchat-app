@@ -9,7 +9,7 @@ import {
   EXIT,
   USER_SELF_CHANGED,
 } from './actionIds'
-import { User } from '../models/user'
+import { User, ChatUser } from '../models/user'
 import { Message, Content, ChannelId } from '../models/message'
 import { WebSocketSubject } from 'rxjs/observable/dom/WebSocketSubject'
 
@@ -38,7 +38,7 @@ export type MessageReveived = Message & {
 
 export type OnlineUsersChanged = {
   readonly type: typeof ONLINE_USERS_CHANGED
-  readonly users: User[]
+  readonly users: ChatUser[]
 }
 
 export type ServerMessage = MessageReveived | SendMessage | OnlineUsersChanged

@@ -7,7 +7,7 @@ import { GradienButton } from '../components/generic'
 const InputWrapper = glamorous.div({
   backgroundColor: lightGrey,
   borderColor: grey,
-  borderBottomStyle: 'solid',
+  borderStyle: 'solid',
   borderWidth: '1px',
   width: '100%',
   height: '100px',
@@ -20,7 +20,7 @@ const InputWrapper = glamorous.div({
 
 const TextInput = glamorous.textarea({
   borderColor: grey,
-  borderBottomStyle: 'solid',
+  borderStyle: 'solid',
   borderWidth: '1px',
   borderRadius: '4px',
   flexGrow: 1,
@@ -31,11 +31,11 @@ const TextInput = glamorous.textarea({
 })
 
 type ChatInputState = {
-  messageContent: string,
+  messageContent: string
 }
 
 export type ChatInputProps = {
-  onSubmit: (content: string, channelId: string) => void,
+  onSubmit: (content: string, channelId: string) => void
 }
 
 export class ChatInput extends PureComponent<ChatInputProps, ChatInputState> {

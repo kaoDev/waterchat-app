@@ -6,7 +6,7 @@ import {
   ONLINE_USERS_CHANGED,
   USER_SELF_CHANGED,
 } from '../events/actionIds'
-import { User } from '../models/user'
+import { User, ChatUser } from '../models/user'
 import { Message } from '../models/message'
 import { WebSocketSubject } from 'rxjs/observable/dom/WebSocketSubject'
 
@@ -33,7 +33,7 @@ export const chatSocket = (
   }
 }
 
-export const users = (oldState: User[] = [], action: WaterChatAction) => {
+export const users = (oldState: ChatUser[] = [], action: WaterChatAction) => {
   switch (action.type) {
     case ONLINE_USERS_CHANGED: {
       return action.users

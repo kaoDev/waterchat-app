@@ -19,10 +19,10 @@ const HeaderContainer = glamorous.div({
 })
 
 const Title = glamorous.h1({
-  fontSize: '60px',
+  fontSize: '50px',
   color: green,
-  margin: '0',
   fontWeight: 100,
+  margin: '16px',
 })
 
 function mapDispatch(dispatch: Dispatch<WaterChatAction>) {

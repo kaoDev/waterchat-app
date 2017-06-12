@@ -25,18 +25,18 @@ import {
   closeSocket,
   fetchUser,
 } from './epics'
-import { User } from '../models/user'
+import { User, ChatUser } from '../models/user'
 import { ServerMessage } from '../events/actions'
 import { Message } from '../models/message'
 import { WebSocketSubject } from 'rxjs/observable/dom/WebSocketSubject'
 
 export type AppState = {
-  readonly sessionId: string,
-  readonly router: RouterState,
-  readonly chatSocket: WebSocketSubject<ServerMessage> | null,
-  readonly users: User[],
-  readonly self: User,
-  readonly messages: Message[],
+  readonly sessionId: string
+  readonly router: RouterState
+  readonly chatSocket: WebSocketSubject<ServerMessage> | null
+  readonly users: ChatUser[]
+  readonly self: User
+  readonly messages: Message[]
 }
 
 const initialAppState: AppState = {

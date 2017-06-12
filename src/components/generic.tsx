@@ -32,6 +32,14 @@ export const FlexColumnWrapper = glamorous.div({
   display: 'flex',
   flexDirection: 'column',
   height: '100%',
+  width: '100%',
+})
+
+export const FlexRowWrapper = glamorous.div({
+  display: 'flex',
+  flexDirection: 'row',
+  height: '100%',
+  width: '100%',
 })
 
 export const FlexColumnCenteredWrapper = glamorous.div({
@@ -40,4 +48,5 @@ export const FlexColumnCenteredWrapper = glamorous.div({
   justifyContent: 'center',
   alignItems: 'center',
   height: '100%',
+  width: '100%',
 })

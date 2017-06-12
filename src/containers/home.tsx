@@ -6,13 +6,23 @@ import { WaterChatAction } from '../events/actions'
 import { SEND_MESSAGE } from '../events/actionIds'
 import { MessageList } from '../components/message-list'
 import { ChatInput } from '../components/chat-input'
+import { UserLst } from '../components/user-list'
 import {
   FlexColumnWrapper,
   FlexColumnCenteredWrapper,
   GradienButtonLink,
+  FlexRowWrapper,
 } from '../components/generic'
 import { RouteComponentProps } from 'react-router'
 import { Redirect } from 'react-router-dom'
+import glamorous from 'glamorous'
+
+const ChatWrapper = glamorous(FlexColumnWrapper)({
+  marginTop: '-10px',
+  height: 'calc(100% + 10px)',
+  backgroundColor: 'white',
+  flexGrow: 1,
+})
 
 function mapDispatch(dispatch: Dispatch<WaterChatAction>) {
   return {
@@ -60,10 +70,13 @@ class HomeComponent extends PureComponent<
       ? <FlexColumnCenteredWrapper>
           <GradienButtonLink to="/login">goto login </GradienButtonLink>
         </FlexColumnCenteredWrapper>
-      : <FlexColumnWrapper>
-          <MessageList messages={messages} users={users} self={self} />
-          <ChatInput onSubmit={sendMessage} />
-        </FlexColumnWrapper>
+      : <FlexRowWrapper>
+          <UserLst users={users} />
+          <ChatWrapper>
+            <MessageList messages={messages} users={users} self={self} />
+            <ChatInput onSubmit={sendMessage} />
+          </ChatWrapper>
+        </FlexRowWrapper>
   }
 }
 export const Home = connect(mapState, mapDispatch)(HomeComponent)
