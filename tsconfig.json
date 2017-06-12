@@ -35,6 +35,6 @@
     "src/setupTests.ts"
   ],
   "types": [
-    "typePatches"
+    "declarations"
   ]
 }
