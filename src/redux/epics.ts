@@ -116,8 +116,8 @@ export const serverMessages: Epic<WaterChatAction, AppState> = $actions =>
     .ofType(CHAT_SOCKET_CHANGED)
     .map(a => (a.type === CHAT_SOCKET_CHANGED ? a.socket : null))
     .filter(socket => socket !== null)
-    .distinct()
     .flatMap((socket: WebSocketSubject<ServerMessage>) => socket)
+    .filter(m => m.type !== undefined)
     .catch((e: Error) => {
       return empty()
     })

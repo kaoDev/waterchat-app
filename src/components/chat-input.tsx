@@ -27,6 +27,7 @@ const TextInput = glamorous.textarea({
   margin: '20px',
   outline: 'none',
   resize: 'none',
+  padding: '8px',
 })
 
 type ChatInputState = {
@@ -46,7 +47,7 @@ export class ChatInput extends PureComponent<ChatInputProps, ChatInputState> {
     })
   }
 
-  submit = (event: React.FormEvent<HTMLButtonElement>) => {
+  submit = () => {
     const content = this.state.messageContent
     const channelId = 'public'
     this.props.onSubmit(content, channelId)
@@ -55,10 +56,18 @@ export class ChatInput extends PureComponent<ChatInputProps, ChatInputState> {
       messageContent: '',
     })
   }
+
+  submitOnEnter = (event: React.KeyboardEvent<any>) => {
+    if (event.keyCode === 13 /* ENTER */) {
+      this.submit()
+    }
+  }
+
   render() {
     return (
       <InputWrapper key="input">
         <TextInput
+          onKeyUp={this.submitOnEnter}
           onChange={this.onTextInput}
           value={this.state.messageContent}
         />
