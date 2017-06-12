@@ -14,9 +14,9 @@ import { User } from '../models/user'
 import { FillContainer } from './generic'
 
 export type MessageListProps = {
-  readonly messages: MessageData[]
-  readonly users: User[]
-  readonly self: User
+  readonly messages: MessageData[],
+  readonly users: User[],
+  readonly self: User,
 }
 
 export class MessageList extends PureComponent<MessageListProps, {}> {
@@ -52,12 +52,9 @@ export class MessageList extends PureComponent<MessageListProps, {}> {
     )
   }
   componentDidUpdate(prevProps: MessageListProps) {
-    if (
-      prevProps.messages !== this.props.messages &&
-      this._list !== undefined
-    ) {
+    if (this._list !== undefined) {
       this._list.scrollToRow(this.props.messages.length - 1)
-      this._list.forceUpdate()
+      this._list.forceUpdateGrid()
     }
   }
 
