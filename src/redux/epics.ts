@@ -25,7 +25,9 @@ import 'rxjs/add/operator/map'
 import 'rxjs/add/operator/mergeMap'
 import 'rxjs/add/operator/do'
 import 'rxjs/add/operator/distinct'
+import 'rxjs/add/operator/catch'
 import { empty } from 'rxjs/observable/empty'
+import { Observable } from 'rxjs/Observable'
 import { interval } from 'rxjs/observable/interval'
 import { webSocket } from 'rxjs/observable/dom/webSocket'
 import { ajax } from 'rxjs/observable/dom/ajax'
@@ -116,6 +118,9 @@ export const serverMessages: Epic<WaterChatAction, AppState> = $actions =>
     .filter(socket => socket !== null)
     .distinct()
     .flatMap((socket: WebSocketSubject<ServerMessage>) => socket)
+    .catch((e: Error) => {
+      return empty()
+    })
 
 export const serverCommands: Epic<WaterChatAction, AppState> = (
   $actions,
@@ -179,4 +184,6 @@ export const fetchUser: Epic<WaterChatAction, AppState> = $actions =>
       return ajax(`https://office.cap3.de:57503/auth/user/${a.sessionId}`)
     })
     .map(res => res.response as User)
-    .map(u => ({ type: USER_SELF_CHANGED, data: u } as UserSelfChanged))
+    .map(u => ({ type: USER_SELF_CHANGED, data: u })) as Observable<
+    UserSelfChanged
+  >
