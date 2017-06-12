@@ -4,14 +4,17 @@ import { createAppStore } from './redux/store'
 import { ConnectedRouter } from 'react-router-redux'
 import createHistory from 'history/createBrowserHistory'
 import { Route } from 'react-router'
-import { Login } from './components/login'
+import { LoginWithGitHub } from './components/login'
 import { FlexColumnWrapper } from './components/generic'
 import { Home } from './containers/home'
 import { Header } from './containers/header'
 import { INIT, EXIT } from './events/actionIds'
-import { SessionCallback } from './containers/session-callback'
 
-const history = createHistory()
+const basename = '/' // '/waterchat-app/' // waterchat-app for gh-pages deployment
+
+const history = createHistory({
+  basename,
+})
 
 const store = createAppStore(history)
 
@@ -31,8 +34,7 @@ class App extends React.Component<{}, null> {
           <FlexColumnWrapper>
             <Header />
             <Route exact path="/" component={Home} />
-            <Route path="/login" component={Login} />
-            <Route path="/sessionCallback" component={SessionCallback} />
+            <Route path="/login" component={LoginWithGitHub(basename)} />
           </FlexColumnWrapper>
         </ConnectedRouter>
       </Provider>

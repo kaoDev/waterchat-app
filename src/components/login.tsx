@@ -3,17 +3,13 @@ import LoginButton from './loginButton'
 
 const githubAuthBase = 'https://office.cap3.de:57503/auth/github'
 
-const sessionCallBack = () => {
-  const base = window.location.origin
-
-  return `${base}/sessionCallback`
+const sessionCallBack = (base: string) => {
+  const { origin } = window.location
+  return `${origin}${base}`
 }
 
-export function Login() {
-  return (
-    <LoginButton
-      url={`${githubAuthBase}?callback=${sessionCallBack()}`}
-      label="sign in with github"
-    />
-  )
-}
+export const LoginWithGitHub = (baseUrl: string) => () =>
+  <LoginButton
+    url={`${githubAuthBase}?callback=${sessionCallBack(baseUrl)}`}
+    label="sign in with github"
+  />

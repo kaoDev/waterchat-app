@@ -46,10 +46,7 @@ export const extractSession: Epic<WaterChatAction, AppState> = $actions =>
     .ofType(LOCATION_CHANGE)
     .flatMap<WaterChatAction, WaterChatAction>(a => {
       // if session callback is routed check if session id is set and then change route to login or home
-      if (
-        a.type === LOCATION_CHANGE &&
-        a.payload.pathname.indexOf('/sessionCallback') == 0
-      ) {
+      if (a.type === LOCATION_CHANGE) {
         const sessionId = extractSessionId(a)
         if (sessionId.length > 0) {
           return [

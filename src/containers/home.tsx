@@ -12,6 +12,7 @@ import {
   GradienButtonLink,
 } from '../components/generic'
 import { RouteComponentProps } from 'react-router'
+import { Redirect } from 'react-router-dom'
 
 function mapDispatch(dispatch: Dispatch<WaterChatAction>) {
   return {
@@ -31,7 +32,7 @@ const mapState: MapStateToProps<AppState, RouteComponentProps<{}>> = (
 ) => state
 
 type DispatchProps = {
-  sendMessage: (content: string, channelId: string) => void,
+  sendMessage: (content: string, channelId: string) => void
 }
 
 type ChatState = {}
@@ -41,7 +42,19 @@ class HomeComponent extends PureComponent<
   ChatState
 > {
   render() {
-    const { chatSocket, messages, users, self, sendMessage } = this.props
+    const {
+      chatSocket,
+      messages,
+      users,
+      self,
+      sendMessage,
+      router,
+    } = this.props
+
+    // if this component is routed with the session id redirect ro clean home url
+    if (router.location !== null && router.location.search.length > 0) {
+      return <Redirect to="/" />
+    }
 
     return chatSocket === null
       ? <FlexColumnCenteredWrapper>

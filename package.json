@@ -56,6 +56,6 @@
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "prettify": "prettier --single-quote --trailing-comma es5 --no-semi --write \"{src,stories}/**/*.{tsx,ts}\"",
-    "deploy": "npm run build && gh-pages -d build"
+    "deploy": "npm run build && gh-pages -d build -b gh-pages -r git@github.com:kaoDev/waterchat-app.git"
   }
 }
