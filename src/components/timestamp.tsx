@@ -4,32 +4,29 @@ import { PureComponent } from 'react'
 import {
   format,
   isSameDay,
-  isSameHour,
-  isSameMinute,
   differenceInMinutes,
   differenceInSeconds,
   differenceInMilliseconds,
   endOfDay,
-  endOfMinute,
-  endOfHour,
 } from 'date-fns'
+import { grey } from '../colors'
 
 const padding = '22px'
 
 const StyledDiv = glamorous.div({
   fontFamily: 'sans-serif',
   fontWeight: 100,
-  color: 'lightgrey',
+  color: grey,
   padding: padding,
   fontSize: '0.8em',
 })
 
 export type TimestampProps = {
-  timestamp: string
+  timestamp: string,
 }
 
 export type TimestampState = {
-  timeString: string
+  timeString: string,
 }
 
 export class Timestamp extends PureComponent<TimestampProps, TimestampState> {
@@ -49,15 +46,18 @@ export class Timestamp extends PureComponent<TimestampProps, TimestampState> {
     const now = new Date()
     this.setState(this.createState(timestamp, now))
 
-    if (isSameMinute(now, timestamp)) {
+    const diffInSeconds = differenceInSeconds(now, timestamp)
+    if (diffInSeconds < 60) {
       this.timerID = window.setTimeout(
         this.updateTimeString,
-        differenceInMilliseconds(now, endOfMinute(now))
+        (diffInSeconds > 30
+          ? Math.abs(60 - diffInSeconds)
+          : Math.abs(30 - diffInSeconds)) * 1000
       )
-    } else if (isSameHour(now, timestamp)) {
+    } else if (diffInSeconds < 3600) {
       this.timerID = window.setTimeout(
         this.updateTimeString,
-        differenceInMilliseconds(now, endOfHour(now))
+        diffInSeconds % 60 * 1000
       )
     } else if (isSameDay(now, timestamp)) {
       this.timerID = window.setTimeout(
@@ -68,14 +68,13 @@ export class Timestamp extends PureComponent<TimestampProps, TimestampState> {
   }
 
   createState = (timestamp: string, now: Date) => {
-    if (isSameMinute(now, timestamp)) {
-      const diff = differenceInSeconds(now, timestamp) || 1
-
+    const diffInSeconds = differenceInSeconds(now, timestamp)
+    if (diffInSeconds < 60) {
       return {
-        timeString: diff > 30 ? '~30 seconds ago' : 'seconds ago',
+        timeString: diffInSeconds > 30 ? 'a moment ago' : 'just now',
       }
-    } else if (isSameHour(now, timestamp)) {
-      const diff = differenceInMinutes(now, timestamp) || 1
+    } else if (diffInSeconds < 3600) {
+      const diff = differenceInMinutes(now, timestamp)
       return {
         timeString: `${diff} minute${diff > 1 ? 's' : ''} ago`,
       }
@@ -91,7 +90,6 @@ export class Timestamp extends PureComponent<TimestampProps, TimestampState> {
   }
 
   state = { timeString: '' }
-
   render() {
     const { timeString } = this.state
     return (
