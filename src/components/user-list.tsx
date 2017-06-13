@@ -8,6 +8,7 @@ import glamorous from 'glamorous'
 const Wrapper = glamorous(FlexColumnWrapper)({
   maxWidth: '250px',
   backgroundColor: lightGrey,
+  overflow: 'auto',
 })
 
 export const UserLst = ({ users }: { users: ChatUser[] }) =>

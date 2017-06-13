@@ -11,6 +11,7 @@ const Wrapper = glamorous.div<{
     width: '250px',
     boxSizing: 'border-box',
     padding: '8px',
+    flexShrink: 0,
   },
   ({ online }) => ({
     opacity: online ? 1 : 0.5,

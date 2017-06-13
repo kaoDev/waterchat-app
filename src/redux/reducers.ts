@@ -36,7 +36,19 @@ export const chatSocket = (
 export const users = (oldState: ChatUser[] = [], action: WaterChatAction) => {
   switch (action.type) {
     case ONLINE_USERS_CHANGED: {
-      return action.users
+      return action.users.sort((a, b) => {
+        if (a.online && !b.online) {
+          return -1
+        } else if (!a.online && b.online) {
+          return 1
+        } else {
+          if (a.displayName && b.displayName) {
+            return a.displayName < b.displayName ? -1 : 1
+          } else {
+            return -1
+          }
+        }
+      })
     }
     default:
       return oldState
