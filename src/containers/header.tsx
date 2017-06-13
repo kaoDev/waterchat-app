@@ -42,7 +42,7 @@ const Title = ({ text }: { text: string }) =>
           <stop offset="100%" stopColor={lightBlue} />
         </linearGradient>
       </defs>
-      <text x="0%" y="75%" fontSize="50px">{text}</text>
+      <text x="0%" y="60px" fontSize="40px">{text}</text>
     </svg>
   </SvgContain>
 
@@ -75,6 +75,9 @@ type HeaderProps = {
 const LogOutButton = glamorous(GradienButton)({
   margin: '10px',
   alignSelf: 'flex-start',
+  background: 'transparent',
+  color: lightBlue,
+  textDecoration: 'underline',
 })
 
 class HeaderComponent extends PureComponent<HeaderProps & DispatchProps, {}> {

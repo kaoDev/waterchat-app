@@ -17,6 +17,7 @@ import { RouteComponentProps } from 'react-router'
 import { Redirect } from 'react-router-dom'
 import glamorous from 'glamorous'
 import { darkBlue } from '../colors'
+import * as MediaQuery from 'react-responsive'
 
 const topMargin = -20
 
@@ -75,7 +76,9 @@ class HomeComponent extends PureComponent<
           <GradienButtonLink to="/login">goto login </GradienButtonLink>
         </FlexColumnCenteredWrapper>
       : <FlexRowWrapper>
-          <UserLst users={users} />
+          <MediaQuery minWidth={700}>
+            <UserLst users={users} />
+          </MediaQuery>
           <ChatWrapper>
             <MessageList messages={messages} users={users} self={self} />
             <ChatInput onSubmit={sendMessage} />
