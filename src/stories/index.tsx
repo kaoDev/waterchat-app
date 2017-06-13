@@ -1,3 +1,4 @@
+import '../index.css'
 import './user'
 import './message'
 import './channel'
