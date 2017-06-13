@@ -77,7 +77,9 @@ const LogOutButton = glamorous(GradienButton)({
   alignSelf: 'flex-start',
   background: 'transparent',
   color: lightBlue,
-  textDecoration: 'underline',
+  ':hover': {
+    textDecoration: 'underline',
+  },
 })
 
 class HeaderComponent extends PureComponent<HeaderProps & DispatchProps, {}> {

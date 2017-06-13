@@ -1,5 +1,5 @@
 import glamorous, { CSSProperties } from 'glamorous'
-import { green, lightBlue, darkBlue } from '../colors'
+import { green, lightBlue } from '../colors'
 import { Link } from 'react-router-dom'
 
 export const FillContainer = glamorous.div({
@@ -20,7 +20,10 @@ const gradientButtonStyle: CSSProperties = {
   justifyContent: 'center',
   alignItems: 'center',
   textDecoration: 'none',
-  color: darkBlue,
+  color: 'white',
+  fontWeight: 500,
+  fontFamily: 'Raleway,sans-serif',
+  fontSize: '16px',
 }
 
 export const GradienButton = glamorous.button(gradientButtonStyle)

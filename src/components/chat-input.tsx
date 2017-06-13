@@ -29,6 +29,8 @@ const TextInput = glamorous.textarea({
   outline: 'none',
   resize: 'none',
   padding: '8px',
+  fontSize: '14px',
+  fontFamily: 'Raleway,sans-serif',
 })
 
 type ChatInputState = {

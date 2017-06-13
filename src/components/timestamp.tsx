@@ -9,24 +9,25 @@ import {
   differenceInMilliseconds,
   endOfDay,
 } from 'date-fns'
-import { grey } from '../colors'
+import { darkBlue } from '../colors'
 
 const padding = '22px'
 
 const StyledDiv = glamorous.div({
-  fontFamily: 'sans-serif',
+  fontFamily: 'Raleway,sans-serif',
   fontWeight: 100,
-  color: grey,
+  color: darkBlue,
   padding: padding,
   fontSize: '0.8em',
+  opacity: 0.4,
 })
 
 export type TimestampProps = {
-  timestamp: string,
+  timestamp: string
 }
 
 export type TimestampState = {
-  timeString: string,
+  timeString: string
 }
 
 export class Timestamp extends PureComponent<TimestampProps, TimestampState> {
