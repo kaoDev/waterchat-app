@@ -1,7 +1,8 @@
 import * as React from 'react'
 import LoginButton from './loginButton'
+import { FlexColumnWrapper } from './generic'
 
-const githubAuthBase = 'https://office.cap3.de:57503/auth/github'
+const oAuthBase = 'https://office.cap3.de:57503/auth'
 
 const sessionCallBack = (base: string) => {
   const { origin } = window.location
@@ -9,7 +10,13 @@ const sessionCallBack = (base: string) => {
 }
 
 export const LoginWithGitHub = (baseUrl: string) => () =>
-  <LoginButton
-    url={`${githubAuthBase}?callback=${sessionCallBack(baseUrl)}`}
-    label="sign in with github"
-  />
+  <FlexColumnWrapper>
+    <LoginButton
+      url={`${oAuthBase}/github?callback=${sessionCallBack(baseUrl)}`}
+      label="sign in with github"
+    />
+    <LoginButton
+      url={`${oAuthBase}/twitter?callback=${sessionCallBack(baseUrl)}`}
+      label="sign in with twitter"
+    />
+  </FlexColumnWrapper>

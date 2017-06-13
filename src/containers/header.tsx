@@ -43,7 +43,7 @@ const Title = ({ text }: { text: string }) =>
         </linearGradient>
       </defs>
       <text x="0%" y="75%" fontSize="50px">{text}</text>
-    </svg>#
+    </svg>
   </SvgContain>
 
 function mapDispatch(dispatch: Dispatch<WaterChatAction>) {
