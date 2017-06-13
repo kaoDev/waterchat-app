@@ -1,1 +1,0 @@
-{"version":3,"sources":["index.css"],"names":[],"mappings":"AAAA,gBAGI,SACA,UACA,+BACA,WACA,WAAa","file":"static/css/main.5bbba594.css","sourcesContent":["#root,\nbody,\nhtml {\n    margin: 0;\n    padding: 0;\n    font-family: 'Raleway', sans-serif;\n    width: 100%;\n    height: 100%;\n}\n\n\n// WEBPACK FOOTER //\n// ./src/index.css"],"sourceRoot":""}
