@@ -26,7 +26,10 @@ const gradientButtonStyle: CSSProperties = {
   fontSize: '16px',
 }
 
-export const GradienButton = glamorous.button(gradientButtonStyle)
+export const GradienButton = glamorous.button({
+  ...gradientButtonStyle,
+  display: 'inline-block',
+})
 
 export const GradienButtonLink = glamorous(Link)(gradientButtonStyle)
 export const GradienButtonExternalLink = glamorous.a(gradientButtonStyle)
@@ -44,6 +47,17 @@ export const FlexRowWrapper = glamorous.div({
   height: '100%',
   width: '100%',
 })
+
+export const FlexRowSpecHeightWrapper = glamorous.div<{ height: string }>(
+  {
+    display: 'flex',
+    flexDirection: 'row',
+    width: '100%',
+  },
+  ({ height }) => ({
+    height,
+  })
+)
 
 export const FlexColumnCenteredWrapper = glamorous.div({
   display: 'flex',

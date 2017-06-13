@@ -14,9 +14,9 @@ import { User } from '../models/user'
 import { FillContainer } from './generic'
 
 export type MessageListProps = {
-  readonly messages: MessageData[],
-  readonly users: User[],
-  readonly self: User,
+  readonly messages: MessageData[]
+  readonly users: User[]
+  readonly self: User
 }
 
 export class MessageList extends PureComponent<MessageListProps, {}> {

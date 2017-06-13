@@ -11,7 +11,7 @@ import {
   FlexColumnWrapper,
   FlexColumnCenteredWrapper,
   GradienButtonLink,
-  FlexRowWrapper,
+  FlexRowSpecHeightWrapper,
 } from '../components/generic'
 import { RouteComponentProps } from 'react-router'
 import { Redirect } from 'react-router-dom'
@@ -27,6 +27,11 @@ const ChatWrapper = glamorous(FlexColumnWrapper)({
   backgroundColor: 'white',
   flexGrow: 1,
   boxShadow: `10px 10px 30px ${darkBlue}`,
+})
+
+const MessageListWrapper = glamorous.div({
+  height: 'calc(100% - 100px)',
+  width: '100%',
 })
 
 function mapDispatch(dispatch: Dispatch<WaterChatAction>) {
@@ -75,15 +80,17 @@ class HomeComponent extends PureComponent<
       ? <FlexColumnCenteredWrapper>
           <GradienButtonLink to="/login">goto login </GradienButtonLink>
         </FlexColumnCenteredWrapper>
-      : <FlexRowWrapper>
+      : <FlexRowSpecHeightWrapper height={'calc(100% - 100px)'}>
           <MediaQuery minWidth={700}>
             <UserLst users={users} />
           </MediaQuery>
           <ChatWrapper>
-            <MessageList messages={messages} users={users} self={self} />
+            <MessageListWrapper>
+              <MessageList messages={messages} users={users} self={self} />
+            </MessageListWrapper>
             <ChatInput onSubmit={sendMessage} />
           </ChatWrapper>
-        </FlexRowWrapper>
+        </FlexRowSpecHeightWrapper>
   }
 }
 export const Home = connect(mapState, mapDispatch)(HomeComponent)
