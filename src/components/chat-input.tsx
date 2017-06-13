@@ -16,6 +16,7 @@ const InputWrapper = glamorous.div({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
+  boxSizing: 'border-box',
 })
 
 const TextInput = glamorous.textarea({

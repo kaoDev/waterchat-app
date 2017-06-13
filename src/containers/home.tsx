@@ -16,12 +16,16 @@ import {
 import { RouteComponentProps } from 'react-router'
 import { Redirect } from 'react-router-dom'
 import glamorous from 'glamorous'
+import { darkBlue } from '../colors'
+
+const topMargin = -20
 
 const ChatWrapper = glamorous(FlexColumnWrapper)({
-  marginTop: '-10px',
-  height: 'calc(100% + 10px)',
+  marginTop: `${topMargin}px`,
+  height: `calc(100% + ${topMargin * -1}px)`,
   backgroundColor: 'white',
   flexGrow: 1,
+  boxShadow: `10px 10px 30px ${darkBlue}`,
 })
 
 function mapDispatch(dispatch: Dispatch<WaterChatAction>) {
