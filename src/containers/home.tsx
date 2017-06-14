@@ -6,7 +6,7 @@ import { WaterChatAction } from '../events/actions'
 import { SEND_MESSAGE } from '../events/actionIds'
 import { MessageList } from '../components/message-list'
 import { ChatInput } from '../components/chat-input'
-import { UserLst } from '../components/user-list'
+import { UserList } from '../components/user-list'
 import {
   FlexColumnWrapper,
   FlexColumnCenteredWrapper,
@@ -82,7 +82,7 @@ class HomeComponent extends PureComponent<
         </FlexColumnCenteredWrapper>
       : <FlexRowSpecHeightWrapper height={'calc(100% - 100px)'}>
           <MediaQuery minWidth={700}>
-            <UserLst users={users} />
+            <UserList users={users} />
           </MediaQuery>
           <ChatWrapper>
             <MessageListWrapper>

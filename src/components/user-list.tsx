@@ -11,7 +11,7 @@ const Wrapper = glamorous(FlexColumnWrapper)({
   overflow: 'auto',
 })
 
-export const UserLst = ({ users }: { users: ChatUser[] }) =>
+export const UserList = ({ users }: { users: ChatUser[] }) =>
   <Wrapper>
     {users.map(({ userId, ...user }) => <User key={userId} {...user} />)}
   </Wrapper>
