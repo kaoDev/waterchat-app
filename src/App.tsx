@@ -3,14 +3,33 @@ import { Provider } from 'react-redux'
 import { createAppStore } from './redux/store'
 import { ConnectedRouter } from 'react-router-redux'
 import createHistory from 'history/createBrowserHistory'
-import { Route } from 'react-router'
+import { Route, Switch } from 'react-router'
+import { Redirect } from 'react-router-dom'
 import { LoginWithGitHub } from './components/login'
 import { FlexColumnWrapper } from './components/generic'
 import { Home } from './containers/home'
 import { Header } from './containers/header'
 import { INIT, EXIT } from './events/actionIds'
 
-const basename = '/' // '/waterchat-app/' // waterchat-app for gh-pages deployment
+const getBaseRoute = (ref: string) => {
+  const indexBase = '/index.html'
+  const ghPagesRoute = '/waterchat-app'
+  const htmlIndex = ref.indexOf(indexBase)
+  const ghPagesIndex = ref.indexOf(ghPagesRoute)
+  console.log(ref)
+
+  if (htmlIndex !== -1) {
+    return ref.substring(htmlIndex, htmlIndex + indexBase.length)
+  } else if (ghPagesIndex !== -1) {
+    return ref.substring(ghPagesIndex, ghPagesIndex + ghPagesRoute.length)
+  } else {
+    return '/'
+  }
+}
+
+const basename = getBaseRoute(window.location.href)
+
+console.log('BASE', basename)
 
 const history = createHistory({
   basename,
@@ -33,8 +52,17 @@ class App extends React.Component<{}, null> {
         <ConnectedRouter history={history}>
           <FlexColumnWrapper>
             <Header />
-            <Route exact path="/" component={Home} />
-            <Route path="/login" component={LoginWithGitHub(basename)} />
+            <Switch>
+              <Route exact path="/" component={Home} />
+              <Route
+                exact
+                path="/login"
+                component={LoginWithGitHub(basename)}
+              />
+              <Route>
+                <Redirect to="/" />
+              </Route>
+            </Switch>
           </FlexColumnWrapper>
         </ConnectedRouter>
       </Provider>

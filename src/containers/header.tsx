@@ -82,6 +82,20 @@ const LogOutButton = glamorous(GradienButton)({
   },
 })
 
+const RightContainer = glamorous.div({
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+})
+
+const GitHubButton = (props: React.HTMLProps<HTMLAnchorElement>) =>
+  <a
+    className="github-button"
+    href="https://github.com/kaoDev/waterchat-app"
+    data-size="large"
+    aria-label="Star kaoDev/waterchat-app on GitHub"
+  />
+
 class HeaderComponent extends PureComponent<HeaderProps & DispatchProps, {}> {
   render() {
     const { connected, logOut } = this.props
@@ -93,7 +107,10 @@ class HeaderComponent extends PureComponent<HeaderProps & DispatchProps, {}> {
     return (
       <HeaderContainer>
         <Title text={'Waterchat'} />
-        {logOutButton}
+        <RightContainer>
+          <GitHubButton />
+          {logOutButton}
+        </RightContainer>
       </HeaderContainer>
     )
   }
