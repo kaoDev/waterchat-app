@@ -88,13 +88,18 @@ const RightContainer = glamorous.div({
   alignItems: 'center',
 })
 
-const GitHubButton = (props: React.HTMLProps<HTMLAnchorElement>) =>
-  <a
-    className="github-button"
-    href="https://github.com/kaoDev/waterchat-app"
-    data-size="large"
-    aria-label="Star kaoDev/waterchat-app on GitHub"
-  />
+const GitHubButton = glamorous((props: React.HTMLProps<HTMLDivElement>) =>
+  <div {...props}>
+    <a
+      className="github-button"
+      href="https://github.com/kaoDev/waterchat-app"
+      data-size="small"
+      aria-label="Star kaoDev/waterchat-app on GitHub"
+    />
+  </div>
+)({
+  margin: '10px',
+})
 
 class HeaderComponent extends PureComponent<HeaderProps & DispatchProps, {}> {
   render() {

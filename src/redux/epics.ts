@@ -15,6 +15,7 @@ import {
   INIT,
   EXIT,
   USER_SELF_CHANGED,
+  CREATE_CHANNEL,
 } from '../events/actionIds'
 import { AppState } from './store'
 import { User } from '../models/user'
@@ -124,14 +125,15 @@ export const serverCommands: Epic<WaterChatAction, AppState> = (
   stateApi
 ) =>
   $actions
-    .ofType(SEND_MESSAGE)
+    .ofType(SEND_MESSAGE, CREATE_CHANNEL)
     .filter(a => stateApi.getState().chatSocket !== null)
     .do(a => {
       const subject = stateApi.getState().chatSocket
       if (subject !== null && subject.socket.readyState === WebSocket.OPEN) {
         switch (a.type) {
+          case CREATE_CHANNEL:
           case SEND_MESSAGE:
-            console.log('sending message to server', a)
+            console.log('sending command to server', a)
             subject.socket.send(JSON.stringify(a))
             break
         }

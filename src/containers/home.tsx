@@ -86,7 +86,11 @@ class HomeComponent extends PureComponent<
           </MediaQuery>
           <ChatWrapper>
             <MessageListWrapper>
-              <MessageList messages={messages} users={users} self={self} />
+              <MessageList
+                messages={messages.filter(m => m.channelId === 'public')}
+                users={users}
+                self={self}
+              />
             </MessageListWrapper>
             <ChatInput onSubmit={sendMessage} />
           </ChatWrapper>

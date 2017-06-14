@@ -8,6 +8,8 @@ import {
   INIT,
   EXIT,
   USER_SELF_CHANGED,
+  CREATE_CHANNEL,
+  AVAILABLE_CHANNELS_CHANGED,
 } from './actionIds'
 import { User, ChatUser } from '../models/user'
 import { Message, Content, ChannelId } from '../models/message'
@@ -32,6 +34,19 @@ export type SendMessage = Content &
     readonly type: typeof SEND_MESSAGE
   }
 
+export type CreateChannel = {
+  readonly type: typeof CREATE_CHANNEL
+  readonly userIds: string[]
+}
+
+export type AvailableChannelsChanged = {
+  readonly type: typeof AVAILABLE_CHANNELS_CHANGED
+  readonly channels: {
+    readonly channelId: string
+    readonly userIds: string[]
+  }[]
+}
+
 export type MessageReveived = Message & {
   readonly type: typeof MESSAGE_RECEIVED
 }
@@ -41,7 +56,12 @@ export type OnlineUsersChanged = {
   readonly users: ChatUser[]
 }
 
-export type ServerMessage = MessageReveived | SendMessage | OnlineUsersChanged
+export type ServerMessage =
+  | MessageReveived
+  | SendMessage
+  | OnlineUsersChanged
+  | CreateChannel
+  | AvailableChannelsChanged
 
 export type ChatSocketChanged = {
   readonly type: typeof CHAT_SOCKET_CHANGED
