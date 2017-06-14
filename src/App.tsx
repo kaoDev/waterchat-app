@@ -5,7 +5,7 @@ import { ConnectedRouter } from 'react-router-redux'
 import createHistory from 'history/createBrowserHistory'
 import { Route, Switch } from 'react-router'
 import { Redirect } from 'react-router-dom'
-import { LoginWithGitHub } from './components/login'
+import { Login } from './components/login'
 import { FlexColumnWrapper } from './components/generic'
 import { Home } from './containers/home'
 import { Header } from './containers/header'
@@ -54,11 +54,7 @@ class App extends React.Component<{}, null> {
             <Header />
             <Switch>
               <Route exact path="/" component={Home} />
-              <Route
-                exact
-                path="/login"
-                component={LoginWithGitHub(basename)}
-              />
+              <Route exact path="/login" component={Login(basename)} />
               <Route>
                 <Redirect to="/" />
               </Route>

@@ -6,10 +6,11 @@ const oAuthBase = 'https://office.cap3.de:57503/auth'
 
 const sessionCallBack = (base: string) => {
   const { origin } = window.location
-  return `${origin}${base}`
+  const path = base.endsWith('/') ? base : `${base}/`
+  return `${origin}${path}`
 }
 
-export const LoginWithGitHub = (baseUrl: string) => () =>
+export const Login = (baseUrl: string) => () =>
   <FlexColumnWrapper>
     <LoginButton
       url={`${oAuthBase}/github?callback=${sessionCallBack(baseUrl)}`}
